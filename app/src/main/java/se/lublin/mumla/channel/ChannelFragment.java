@@ -20,6 +20,7 @@ package se.lublin.mumla.channel;
 import android.animation.Animator;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -40,6 +41,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
+
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
+import org.videolan.libvlc.MediaPlayer;
+import org.videolan.libvlc.util.VLCVideoLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +73,11 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
     private PagerTabStrip mTabStrip;
     private Button mTalkButton;
     private View mTalkView;
+
+    private static final String rtsp_url = "rtsp://admin:123456@77.32.100.208:4554/stream-6";
+    private LibVLC libVlc;
+    private MediaPlayer mediaPlayer;
+    private VLCVideoLayout videoLayout;
 
     private View mTargetPanel;
     private ImageView mTargetPanelCancel;
@@ -135,13 +146,17 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
+
+    Media media = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_channel, container, false);
-        mViewPager = (ViewPager) view.findViewById(R.id.channel_view_pager);
-        mTabStrip = (PagerTabStrip) view.findViewById(R.id.channel_tab_strip);
+        mViewPager = view.findViewById(R.id.channel_view_pager);
+        mTabStrip = view.findViewById(R.id.channel_tab_strip);
         if(mTabStrip != null) {
             int[] attrs = new int[] { R.attr.colorPrimary, android.R.attr.textColorPrimaryInverse };
             TypedArray a = getActivity().obtainStyledAttributes(attrs);
@@ -188,7 +203,14 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
                 }
             }
         });
-        mTargetPanelText = (TextView) view.findViewById(R.id.target_panel_warning);
+
+        mTargetPanelText = view.findViewById(R.id.target_panel_warning);
+
+        libVlc = new LibVLC(this.getContext());
+        mediaPlayer = new MediaPlayer(libVlc);
+        mediaPlayer.setVolume(0);
+        videoLayout = view.findViewById(R.id.videoLayout);
+
         configureInput();
         return view;
     }
@@ -215,7 +237,26 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
                     .replace(R.id.chat_fragment, chatFragment)
                     .commit();
         }
+
+
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        mediaPlayer.attachViews(videoLayout, null, false, false);
+
+        media = new Media(libVlc, Uri.parse(rtsp_url));
+
+        media.setHWDecoderEnabled(true, true);
+        media.addOption(":network-caching=300");
+        mediaPlayer.setVolume(0);
+        mediaPlayer.setMedia(media);
+        media.release();
+        mediaPlayer.play();
+
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -248,6 +289,7 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
             // XXX: This ensures that push to talk is disabled when we pause.
             // We don't want to leave the talk state active if the fragment is paused while pressed.
             getService().HumlaSession().setTalkingState(false);
+            mediaPlayer.pause();
         }
     }
 
@@ -256,7 +298,19 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         preferences.unregisterOnSharedPreferenceChangeListener(this);
         super.onDestroy();
+        mediaPlayer.release();
+        libVlc.release();
     }
+
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        mediaPlayer.stop();
+        mediaPlayer.detachViews();
+    }
+
+
 
     @Override
     public IHumlaObserver getServiceObserver() {

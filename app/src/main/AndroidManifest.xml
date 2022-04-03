@@ -16,6 +16,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto"
     package="se.lublin.mumla">
 
@@ -31,11 +32,15 @@
         android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
+
+
 
     <queries>
         <!-- We're using guardianproject's OrbotHelper to check if Orbot is installed -->
@@ -46,10 +51,22 @@
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Campanello Beta"
         android:theme="@style/Theme.Mumla"
         android:requestLegacyExternalStorage="true">
         <!-- requestLegacyExternalStorage still true: we keep using old code if Android < 30 -->
+
+        <!--meta-data
+    android:name="com.google.firebase.messaging.default_notification_icon"
+    android:resource="@drawable/ic_stat_ic_notification" /-->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <!--meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" /-->
+
 
         <activity
             android:name=".preference.Preferences"
@@ -86,11 +103,20 @@
             android:name=".service.MumlaService"
             android:enabled="true" />
 
+        <service android:name=".service.NotificationService"
+            android:exported="false"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".app.MumlaActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -162,3 +188,4 @@
     </application>
 
 </manifest>
+

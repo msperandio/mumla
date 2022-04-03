@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "418294922195",
+    "project_id": "campanello-d5641",
+    "storage_bucket": "campanello-d5641.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418294922195:android:f5cd3da94096028d638d26",
+        "android_client_info": {
+          "package_name": "se.lublin.mumla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418294922195-cfmtvaunoia3ktstg0fecn4fs4v0ilc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9T8eSkffkje6gZPPw6wAyik7FpuFp2cE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418294922195-cfmtvaunoia3ktstg0fecn4fs4v0ilc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418294922195:android:2c45dc3c64e88066638d26",
+        "android_client_info": {
+          "package_name": "se.lublin.mumla.beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418294922195-cfmtvaunoia3ktstg0fecn4fs4v0ilc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9T8eSkffkje6gZPPw6wAyik7FpuFp2cE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418294922195-cfmtvaunoia3ktstg0fecn4fs4v0ilc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
