@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
@@ -90,7 +92,14 @@ public class NotificationService extends FirebaseMessagingService{
                 // Log and toast
                 String msg = "Token: "+token;
                 Log.d(TAG, msg);
-                Toast.makeText(NotificationService.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationService.this, "Hanno suonato!", Toast.LENGTH_SHORT).show();
+                try {
+                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                    r.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -102,11 +111,11 @@ public class NotificationService extends FirebaseMessagingService{
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
+        //Toast.makeText(NotificationService.this, remoteMessage.getData().toString(), Toast.LENGTH_SHORT).show();
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-
             if (/* Check if data needs to be processed by long running job */ false) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
                 scheduleJob();
