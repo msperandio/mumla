@@ -103,6 +103,8 @@ public class NotificationService extends FirebaseMessagingService{
             }
         });
     }
+    //https://shelly-30-eu.shelly.cloud
+    //ODdkNjZ1aWQ4DD29479D140425FB7BB118E822BFB94A5C144C9EE87B3BEFB16C94859264AB34106EC1B8A050DFF
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

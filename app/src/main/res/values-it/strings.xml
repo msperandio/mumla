@@ -183,6 +183,8 @@
     <string name="accessAdd">Aggiungi token d\'accesso</string>
     <string name="externalStorageUnavailable">Archiviazione esterna non disponibile, impossibile caricare il certificato</string>
     <string name="ptt">Premi per parlare</string>
+    <string name="cancello">Apri Cancello</string>
+    <string name="cancelletto">Apri Cancelletto</string>
     <string name="server_label">Etichetta</string>
     <string name="no_servers">Aggiungere un server premendo «Aggiungi» dalla barra delle azioni.</string>
     <string name="server_match_description">Mumla può trovare automaticamente un server vuoto, con posizione, versione e latenza ideali.</string>

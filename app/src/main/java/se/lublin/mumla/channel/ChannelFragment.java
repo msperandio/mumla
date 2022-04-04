@@ -72,6 +72,8 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
     private ViewPager mViewPager;
     private PagerTabStrip mTabStrip;
     private Button mTalkButton;
+    private Button mCancelloButton;
+    private Button mCancellettoButton;
     private View mTalkView;
 
     private static final String rtsp_url = "rtsp://admin:123456@77.32.100.208:4554/stream-6";
@@ -210,6 +212,33 @@ public class ChannelFragment extends HumlaServiceFragment implements SharedPrefe
         mediaPlayer = new MediaPlayer(libVlc);
         mediaPlayer.setVolume(0);
         videoLayout = view.findViewById(R.id.videoLayout);
+        mCancelloButton = (Button) view.findViewById(R.id.buttonCancello);
+        mCancelloButton.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        System.out.println("Apriti Cancello!");
+                        break;
+                }
+                return true;
+            }
+        });
+
+        mCancellettoButton = (Button) view.findViewById(R.id.buttonCancelletto);
+        mCancellettoButton.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        System.out.println("Apriti Cancelletto!");
+                        break;
+                }
+                return true;
+            }
+        });
 
         configureInput();
         return view;

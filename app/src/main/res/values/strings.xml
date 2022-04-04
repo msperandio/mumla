@@ -88,6 +88,8 @@
     <string name="connecting">Connecting</string>
     <string name="connecting_to_server">Connecting to %s…</string>
     <string name="ptt">Push-to-talk</string>
+    <string name="cancello">Apri Cancello</string>
+    <string name="cancelletto">Apri Cancelletto</string>
     <string name="mute">Mute</string>
     <string name="deafen">Deafen</string>
     <string name="disconnect">Disconnect</string>

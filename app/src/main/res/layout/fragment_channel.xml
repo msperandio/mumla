@@ -23,8 +23,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -32,7 +31,32 @@
         <org.videolan.libvlc.util.VLCVideoLayout
             android:id="@+id/videoLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+        </org.videolan.libvlc.util.VLCVideoLayout>
+        <Button
+            style="@style/Widget.AppCompat.Button"
+                android:id="@+id/buttonCancello"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:text="@string/cancello"
+                android:textAllCaps="true"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        <Button
+            style="@style/Widget.AppCompat.Button"
+            android:id="@+id/buttonCancelletto"
+            android:layout_below="@+id/buttonCancello"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/cancelletto"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground" />
+
     </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager
